@@ -24,7 +24,8 @@ llamadaHilo(int dev_fd){
 	for(i = 0; i < paquetesParaAtender; i++) {
 		//lectura = recv(dev_fd, buf, BUF_SIZE, 0);
 		lectura = read(dev_fd, buf, BUF_SIZE);
-		if(lectura <= 0) {
+		//if(lectura <= 0) {
+		if(0){
 			fprintf(stderr, "Error en el read del socket (%d)\n", lectura);
 			exit(1);
 		}

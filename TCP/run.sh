@@ -12,7 +12,7 @@ echo "Compilando..."
 make all
 echo "Done"
 
-mkdir perf
+#mkdir perf
 echo "Ejecutando Prueba..."
 for num_threads in $threads
 do
