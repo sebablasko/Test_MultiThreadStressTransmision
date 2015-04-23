@@ -31,10 +31,10 @@ do
 
 		pid=$!
 		sleep 1
-		./client $packages 127.0.0.1 > /dev/null &
-		./client $packages 127.0.0.1 > /dev/null &
-		./client $packages 127.0.0.1 > /dev/null &
-		./client $packages 127.0.0.1 > /dev/null &
+		./client $(($packages*10)) 127.0.0.1 > /dev/null &
+		./client $(($packages*10)) 127.0.0.1 > /dev/null &
+		./client $(($packages*10)) 127.0.0.1 > /dev/null &
+		./client $(($packages*10)) 127.0.0.1 > /dev/null &
 		sleep 1
 		wait $pid
 		linea="$linea$(cat aux)"

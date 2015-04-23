@@ -31,10 +31,10 @@ do
 
 		pid=$!
 		sleep 1
-		./client $packages > /dev/null &
-		./client $packages > /dev/null &
-		./client $packages > /dev/null &
-		./client $packages > /dev/null &
+		./client $(($packages*10)) > /dev/null &
+		./client $(($packages*10)) > /dev/null &
+		./client $(($packages*10)) > /dev/null &
+		./client $(($packages*10)) > /dev/null &
 		pid2=$!
 		sleep 1
 		wait $pid
