@@ -4,7 +4,7 @@
 #include <pthread.h>
 
 //Definiciones
-#define BUF_SIZE 10
+#define BUF_SIZE 512
 #define FIFOPIPENAME "test_pipe"
 
 //Variables
