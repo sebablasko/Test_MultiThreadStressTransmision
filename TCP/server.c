@@ -4,7 +4,7 @@
 #include "../../ssocket/ssocket.h"
 
 //Definiciones
-#define BUF_SIZE 10
+#define BUF_SIZE 512
 #define FIRST_PORT "1820"
 
 //Variables
@@ -36,7 +36,7 @@ llamadaHilo(int socket_fd){
 			fprintf(stderr, "Error en el read del socket (%d)\n", lectura);
 			exit(1);
 		}
-		if(first_pack==0) { 
+		if(first_pack==0) {
 			pthread_mutex_lock(&lock);
 			if(first_pack == 0) {
 				if(mostrarInfo)	printf("got first pack\n");
@@ -80,7 +80,7 @@ int main(int argc, char **argv){
 	}
 
 	//Esperar Threads
-	for(i=0; i < NTHREADS; i++) 
+	for(i=0; i < NTHREADS; i++)
 		pthread_join(pids[i], NULL);
 
 	//Medir Fin
