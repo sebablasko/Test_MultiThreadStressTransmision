@@ -19,7 +19,7 @@ def crearDict(threads_probados, muestras):
 
 # 1.- Recuperar threads_probados y muestras
 files = glob.glob(os.getcwd()+"/perf/*perf*.txt")
-for file in sorted(files):
+for file in files:
 	archivo = open(file, 'r')
 	fileName = os.path.basename(archivo.name)
 	muestras = max(muestras, int(fileName[fileName.find("_")+1 : fileName.find(".")]))
@@ -27,8 +27,11 @@ for file in sorted(files):
 	if threads not in threads_probados:
 		threads_probados.append(threads)
 
+print "Threads probados: ", threads_probados
+print "Repeticiones: ", muestras
+
 # 2.- Abrir cada archivo de datos según la nomenclatura de su nombre
-for thread in threads_probados:
+for thread in sorted(threads_probados):
 	for i in range(muestras):
 		nombre = "{"+str(thread)+"}perf_"+str(i+1)+".txt"
 		ruta = os.getcwd()+"/perf/"+nombre
@@ -36,7 +39,7 @@ for thread in threads_probados:
 		# 3.- Para cada archivo, buscar las apariciones de funciones pedidas según aparición de palabra en su nombre
 		archivo = open(ruta, 'r')
 		for line in archivo:
-			pos = line.find("spin")
+			pos = max(line.find("spin"),line.find("lock"))
 			if(pos>0):
 				porcentaje = line[:line.find("%")].split()[0]
 				funcion = line[line.find("[k]")+3:-1].split()[0]
@@ -48,7 +51,7 @@ for thread in threads_probados:
 
 # 4.- Generar csv con resultados
 salida = open("perfTests.csv", "w+")
-for spin_function in sorted(lock_functions):
+for spin_function in lock_functions:
 	salida.write(spin_function + "\n")
 	for t in sorted(lock_functions[spin_function]):
 		salida.write(str(t) + ",")
