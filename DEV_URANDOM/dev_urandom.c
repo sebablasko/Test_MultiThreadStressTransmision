@@ -76,10 +76,10 @@ void llamadaHilo(int dev_fd){
 	int i;
 	for(i = 0; i < paquetesParaAtender; i++) {
 		lectura = read(dev_fd, buf, BUF_SIZE);
-		if(lectura <= 0) {
-			fprintf(stderr, "Error en el read del dispositivo (%d)\n", lectura);
-			exit(1);
-		}
+		//if(lectura <= 0) {
+		//	fprintf(stderr, "Error en el read del dispositivo (%d)\n", lectura);
+		//	exit(1);
+		//}
 		if(first_pack==0) {
 			pthread_mutex_lock(&lock);
 			if(first_pack == 0) {
