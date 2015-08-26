@@ -4,7 +4,7 @@
 #include "../../ssocket/ssocket.h"
 
 //Definiciones
-#define BUF_SIZE 10
+#define BUF_SIZE 512
 #define MY_SOCK_PATH "unix_sock"
 
 //Variables
