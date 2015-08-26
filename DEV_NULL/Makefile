@@ -1,7 +1,9 @@
 all: devnull
 
 devnull: dev_null.o
-	gcc -g dev_null.o -o dev_null -lpthread
+	gcc -g -o3 dev_null.o -o dev_null -lpthread
 
-clean:
+rm_devnull:
 	rm dev_null dev_null.o
+
+clean: rm_devnull
