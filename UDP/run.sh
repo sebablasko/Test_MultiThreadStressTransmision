@@ -1,12 +1,16 @@
 #!/bin/bash
 #Se requiere la variable res_dir
 res_dir=../RESULTS
+
 #Recuperar parametros
 packages=$1
 shift 1
 repetitions=$1
 shift 1
 threads=$@
+
+total_clients=4
+num_port=1820
 
 echo "Compilando..."
 make all
@@ -20,21 +24,23 @@ do
 	linea="$num_threads,";
 	for ((i=1 ; $i<=$repetitions ; i++))
 	{
-		echo "		Repeticion numero "$i
+		echo "		Repeticion "$i
 
 		if [ "$(whoami)" == "root" ]; then
 			mkdir perf
-			perf record -- ./server $packages $num_threads > aux &
+			perf record -- ./serverTesis --packets $packages --threads $num_threads --port $num_port > aux &	 > aux &
 		else
-			./server $packages $num_threads > aux &
+			./serverTesis --packets $packages --threads $num_threads --port $num_port > aux &
 		fi
 
 		pid=$!
 		sleep 1
-		./client $(($packages*10)) 127.0.0.1 > /dev/null &
-		./client $(($packages*10)) 127.0.0.1 > /dev/null &
-		./client $(($packages*10)) 127.0.0.1 > /dev/null &
-		./client $(($packages*10)) 127.0.0.1 > /dev/null &
+
+		for ((j=1 ; $j<=$total_clients ; j++))
+		{
+			./clientTesis --packets $(($packages*10)) --ip 127.0.0.1 --port $num_port > /dev/null &
+		}
+
 		sleep 1
 		wait $pid
 		linea="$linea$(cat aux)"
