@@ -1,6 +1,7 @@
 #!/bin/bash
 #Se requiere la variable res_dir
 res_dir=../RESULTS
+
 #Recuperar parametros
 packages=$1
 shift 1
@@ -20,13 +21,13 @@ do
 	linea="$num_threads,";
 	for ((i=1 ; $i<=$repetitions ; i++))
 	{
-		echo "		Repeticion numero "$i
+		echo "		Repeticion "$i
 
 		if [ "$(whoami)" == "root" ]; then
 			mkdir perf
-			perf record -- ./dev_urandom $packages $num_threads > aux &
+			perf record -- ./dev_urandom --packets $packages --threads $num_threads > aux &
 		else
-			./dev_urandom $packages $num_threads > aux &
+			./dev_urandom --packets $packages --threads $num_threads > aux &
 		fi
 
 		pid=$!
@@ -40,7 +41,7 @@ do
 				output_perf_file="perf/{"$num_threads"}perf_"$i".txt"
 				perf report > $output_perf_file
 				mv perf.data $perf_file
-		fi	
+		fi
 	}
 	output_csv_file=$res_dir"/DEV_URANDOM_times.csv"
 	echo "$linea" >> $output_csv_file
