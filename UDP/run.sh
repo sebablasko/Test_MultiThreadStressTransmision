@@ -10,7 +10,7 @@ shift 1
 threads=$@
 
 total_clients=4
-num_port=1820
+num_port=1920
 
 echo "Compilando..."
 make all
@@ -28,7 +28,7 @@ do
 
 		if [ "$(whoami)" == "root" ]; then
 			mkdir perf
-			perf record -- ./serverTesis --packets $packages --threads $num_threads --port $num_port > aux &	 > aux &
+			perf record -- ./serverTesis --packets $packages --threads $num_threads --port $num_port > aux &
 		else
 			./serverTesis --packets $packages --threads $num_threads --port $num_port > aux &
 		fi
